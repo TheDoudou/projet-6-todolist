@@ -1,4 +1,4 @@
-var dragSrcEl = null
+let dragSrcEl = null
 
 function handleDragStart(e)
 {
@@ -39,9 +39,9 @@ function handleDrop(e) {
   if (dragSrcEl != this)
   {
     this.parentNode.removeChild(dragSrcEl)
-    var dropHTML = e.dataTransfer.getData('text/html')
+    let dropHTML = e.dataTransfer.getData('text/html')
     this.insertAdjacentHTML('beforebegin',dropHTML)
-    var dropElem = this.previousSibling
+    let dropElem = this.previousSibling
     addDnDHandlers(dropElem)
   }
 

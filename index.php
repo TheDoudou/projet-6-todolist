@@ -150,7 +150,7 @@ if ($type)
 
 
 function parseString($s) {
-    if (preg_match('/^[a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\.\-]{2,50}$/i', $s) == 1)
+    if (preg_match('/^[a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\.\-\'\,]{2,50}$/i', $s) == 1)
         return htmlspecialchars(trim($s)); // Not realy utile but why not it's for sample
     else
         return false;
