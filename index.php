@@ -34,7 +34,7 @@ else
 
 
 
-if ($_GET['clear'] == 1)            // For test 
+if ($_GET['clear'] == 42)            // For test 
 { 
 
     array_map('unlink', glob("assets/data/*.*"));
@@ -235,36 +235,38 @@ function listItemsChecked($d) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>ToDoudou List</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/main.css" />
 </head>
-<body>
-
-
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <?
-        foreach (listCat($data) as $value) {
-            if ($value == $categorie)
-                echo '<div><h3>['.$value.']</h3></div> ';
-            else
-                echo '<div><h3>[<a href="?cat='.$value.'">'.$value.'</a>]</h3></div> ';
-
-            /*
-                echo '<li class="nav-item"><a class="nav-link active" id="'.$value.'-tab" data-toggle="tab" href="#'.$value.'" role="tab" aria-controls="'.$value.'" aria-selected="true">'.$value.'</a></li>';
-            else
-                echo '<li class="nav-item"><a class="nav-link" id="'.$value.'-tab" data-toggle="tab" href="#'.$value.'" role="tab" aria-controls="'.$value.'" aria-selected="false">'.$value.'</a></li>';
-            */
-        }
-        ?>
-        <div><h3>[<a href="https://github.com/TheDoudou/projet-6-todolist">Source</a>]</h3></div> 
-    </ul>
+<body class="container">
+    <nav>
+        <ul class="nav nav-tabs d-flex justify-content-center" id="myTab" role="tablist">
+            <?
+            $d = listCat($data);
+            for ($i = 0; $i < count($d); $i++) {
+                if ($i == 0)
+                    echo '<li class="nav-item"><a class="nav-link active" id="'.$d[$i].'-tab" data-toggle="tab" href="#'.$d[$i].'" role="tab" aria-controls="'.$d[$i].'" aria-selected="true">'.$d[$i].'</a></li>';
+                else
+                    echo '<li class="nav-item"><a class="nav-link" id="'.$d[$i].'-tab" data-toggle="tab" href="#'.$d[$i].'" role="tab" aria-controls="'.$d[$i].'" aria-selected="false">'.$d[$i].'</a></li>';
+            }?>
+            <li class="nav-item">
+                <a class="nav-link" href="https://github.com/TheDoudou/projet-6-todolist" target="_blank">Source</a>
+            </li>
+        </ul>
+    </nav>
     <div>
         <form action="" method="POST" id="form1">
-            <div id="columns">
-                <?  foreach (listItemsCat($data, $categorie) as $value) { ?>
-                <div class="column" draggable="true">
+            <div id="columns nav-tabContent" class="tab-content">
+                <?  for ($i = 0; $i < count($d); $i++) {
+                        if ($i == 0) { ?>
+                            <div class="column tab-pane fade show active" draggable="true" id="<?= $d[$i] ?>" role="tabpanel" aria-labelledby="<?= $d[$i] ?>-tab">
+                        <? } else { ?>
+                            <div class="column tab-pane fade show" draggable="true" id="<?= $d[$i] ?>" role="tabpanel" aria-labelledby="<?= $d[$i] ?>-tab">
+                        <? }
+                        foreach (listItemsCat($data, $d[$i]) as $value) { ?>
                     <input type="checkbox" id="todo1" name="todo-update[]" value="<?= $value[0] ?>"/>
                     <label><?= $value[1] ?></label>
+                        <? } ?>
                 </div>
                 <? } ?>
             </div>
@@ -308,7 +310,9 @@ function listItemsChecked($d) {
 
 
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery-3.3.1.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/main.js"></script>
 </body>
 </html>
