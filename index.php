@@ -232,7 +232,7 @@ function listItemsChecked($d) {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -264,7 +264,7 @@ function listItemsChecked($d) {
         </ul>
     </nav>
     <div>
-        <form action="" method="POST" id="form1">
+        <form method="POST" id="form1">
             <div id="nav-tabContent" class="tab-content">
                 <?  for ($i = 0; $i < count($d); $i++) {
                         $e = str_replace(' ', '-', $d[$i]);
@@ -298,13 +298,13 @@ function listItemsChecked($d) {
         <hr>
         <div>
             <div><h3>AJOUTER UNE TACHE</h3></div>
-            <form action="" method="POST" id="form2" class="d-flex align-items">
+            <form method="POST" id="form2" class="d-flex align-items">
                 <div>
                     <label for="todo-add">La tache :</label><div></div>
                     <input type="text" id="todo-add" name="todo-add" />&nbsp;&nbsp;
                 </div>
                 <div>
-                    <label for="todo-cat">Catégorie :</label><div></div>
+                    <label>Catégorie :</label><div></div>
                     <input type="text" id="todo-cat-add" name="todo-cat-add" /><? if (count(listCat($data)) > 0) { ?> Ou <select name="todo-cat">
                     <? foreach (listCat($data) as $value) { ?>
                         <option value="<?= $value ?>" <? if ($value == $categorie) echo 'selected'; ?>><?= $value ?></option>
