@@ -33,7 +33,7 @@ else
 
 
 
-
+/*
 if ($_GET['clear'] == 42)            // For test 
 { 
 
@@ -44,7 +44,7 @@ if ($_GET['clear'] == 42)            // For test
 
 
 }
-
+*/
 
 
 if ($_GET['view'] == 1)             // For test 
@@ -256,16 +256,18 @@ function listItemsChecked($d) {
     </nav>
     <div>
         <form action="" method="POST" id="form1">
-            <div id="columns nav-tabContent" class="tab-content">
+            <div id="nav-tabContent" class="tab-content">
                 <?  for ($i = 0; $i < count($d); $i++) {
                         if ($i == 0) { ?>
-                            <div class="column tab-pane fade show active" draggable="true" id="<?= $d[$i] ?>" role="tabpanel" aria-labelledby="<?= $d[$i] ?>-tab">
+                            <div class="columns tab-pane fade show active" draggable="true" id="<?= $d[$i] ?>" role="tabpanel" aria-labelledby="<?= $d[$i] ?>-tab">
                         <? } else { ?>
-                            <div class="column tab-pane fade show" draggable="true" id="<?= $d[$i] ?>" role="tabpanel" aria-labelledby="<?= $d[$i] ?>-tab">
+                            <div class="columns tab-pane fade show" draggable="true" id="<?= $d[$i] ?>" role="tabpanel" aria-labelledby="<?= $d[$i] ?>-tab">
                         <? }
                         foreach (listItemsCat($data, $d[$i]) as $value) { ?>
-                    <input type="checkbox" id="todo1" name="todo-update[]" value="<?= $value[0] ?>"/>
-                    <label><?= $value[1] ?></label>
+                            <div class="column">
+                                <input type="checkbox" id="todo1" name="todo-update[]" value="<?= $value[0] ?>"/>
+                                <label><?= $value[1] ?></label>
+                            </div>
                         <? } ?>
                 </div>
                 <? } ?>
