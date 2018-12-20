@@ -1,10 +1,11 @@
 <?
 /*
-* Début du code vendredi matin, Odoo m'a pris un peu de temps ;) reprise le mardi
+*
 * 
 * 
 *
 */
+
 error_reporting(E_ERROR | E_PARSE);
 
 
@@ -67,6 +68,8 @@ if ($_GET['view'] == 1)             // For test
 
 if ($type)
 {
+
+    //var_dump($type);
 
     $todoAdd = htmlspecialchars(trim(filter_var($type['todo-add'], FILTER_SANITIZE_STRING)));
     $todoCatAdd = htmlspecialchars(trim(filter_var($type['todo-cat-add'], FILTER_CALLBACK, array('options' => 'parseString'))));
@@ -150,7 +153,7 @@ if ($type)
 
 
 function parseString($s) {
-    if (preg_match('/^[a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\.\-\'\,]{2,50}$/i', $s) == 1)
+    if (preg_match('/^[a-z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ\.\-\'\,\ ]{2,50}$/i', $s) == 1)
         return htmlspecialchars(trim($s)); // Not realy utile but why not it's for sample
     else
         return false;
@@ -239,15 +242,21 @@ function listItemsChecked($d) {
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/main.css" />
 </head>
 <body class="container">
+
+
+
+
+
     <nav>
         <ul class="nav nav-tabs d-flex justify-content-center" id="myTab" role="tablist">
             <?
             $d = listCat($data);
             for ($i = 0; $i < count($d); $i++) {
+                $e = str_replace(' ', '-', $d[$i]);
                 if ($i == 0)
-                    echo '<li class="nav-item"><a class="nav-link active" id="'.$d[$i].'-tab" data-toggle="tab" href="#'.$d[$i].'" role="tab" aria-controls="'.$d[$i].'" aria-selected="true">'.$d[$i].'</a></li>';
+                    echo '<li class="nav-item"><a class="nav-link active" id="'.$e.'-tab" data-toggle="tab" href="#'.$e.'" role="tab" aria-controls="'.$e.'" aria-selected="true">'.$d[$i].'</a></li>';
                 else
-                    echo '<li class="nav-item"><a class="nav-link" id="'.$d[$i].'-tab" data-toggle="tab" href="#'.$d[$i].'" role="tab" aria-controls="'.$d[$i].'" aria-selected="false">'.$d[$i].'</a></li>';
+                    echo '<li class="nav-item"><a class="nav-link" id="'.$e.'-tab" data-toggle="tab" href="#'.$e.'" role="tab" aria-controls="'.$e.'" aria-selected="false">'.$d[$i].'</a></li>';
             }?>
             <li class="nav-item">
                 <a class="nav-link" href="https://github.com/TheDoudou/projet-6-todolist" target="_blank">Source</a>
@@ -258,13 +267,14 @@ function listItemsChecked($d) {
         <form action="" method="POST" id="form1">
             <div id="nav-tabContent" class="tab-content">
                 <?  for ($i = 0; $i < count($d); $i++) {
+                        $e = str_replace(' ', '-', $d[$i]);
                         if ($i == 0) { ?>
-                            <div class="columns tab-pane fade show active" draggable="true" id="<?= $d[$i] ?>" role="tabpanel" aria-labelledby="<?= $d[$i] ?>-tab">
+                            <div class="tab-pane fade show active" draggable="true" id="<?= $e ?>" role="tabpanel" aria-labelledby="<?= $e ?>-tab">
                         <? } else { ?>
-                            <div class="columns tab-pane fade show" draggable="true" id="<?= $d[$i] ?>" role="tabpanel" aria-labelledby="<?= $d[$i] ?>-tab">
+                            <div class="tab-pane fade show" draggable="true" id="<?= $e ?>" role="tabpanel" aria-labelledby="<?= $e ?>-tab">
                         <? }
                         foreach (listItemsCat($data, $d[$i]) as $value) { ?>
-                            <div class="column">
+                            <div class="">
                                 <input type="checkbox" id="todo1" name="todo-update[]" value="<?= $value[0] ?>"/>
                                 <label><?= $value[1] ?></label>
                             </div>
